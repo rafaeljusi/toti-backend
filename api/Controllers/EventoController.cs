@@ -12,10 +12,7 @@ namespace api.Controllers
     [Route("[controller]")]
     public class EventoController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<Evento> Get()
-        {
-            var eventos = new Evento[]
+        public Evento[] _eventos = new Evento[]
             {
                 new Evento() 
                 {
@@ -29,7 +26,19 @@ namespace api.Controllers
                 },
             };
 
-            return eventos;
+
+        [HttpGet]
+        public IEnumerable<Evento> Get()
+        {
+            return _eventos;
+        }
+
+        [HttpGet("{id}")]
+        public Evento Get(int id)
+        {
+            return _eventos               //coleção/lista de eventos
+                .Where(e => e.Id == id)   //filtrando os que tem Id igual ao informado
+                .SingleOrDefault();       //Single = registro unico  OrDefault = se nao existir, retorna null
         }
     }
 }

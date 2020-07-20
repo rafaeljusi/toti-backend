@@ -1,0 +1,6 @@
+- GET /evento (retornar todos)
+- GET /evento/{id} (retornar o reg. espec.)
+- POST /evento (criar um novo)
+- PUT /evento/{id} (alterar um registro)
+- DELETE /evento/{id} (apagar um registro)
+
