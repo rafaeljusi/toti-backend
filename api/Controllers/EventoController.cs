@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using data;
 using Microsoft.AspNetCore.Mvc;
@@ -12,31 +13,27 @@ namespace api.Controllers
     [Route("[controller]")]
     public class EventoController : ControllerBase
     {
-        public Evento[] _eventos = new Evento[]
-            {
-                new Evento() 
-                {
-                    Id = 1,
-                    Titulo = "Evento no. 1"
-                },
-                new Evento() 
-                {
-                    Id = 2,
-                    Titulo = "Evento no. 2"
-                },
-            };
+        private IEnumerable<Evento> LerEventosDoArquivo()
+        {
+            var conteudoArquivo = System.IO.File.ReadAllText("data.json");
 
+            var lista = JsonSerializer.Deserialize<IEnumerable<Evento>>(conteudoArquivo);
+
+            return lista;
+        }
 
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            return _eventos;
+            var listaEventos = LerEventosDoArquivo();
+            return listaEventos;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public Evento Get(int id)
         {
-            return _eventos               //coleção/lista de eventos
+            var listaEventos = LerEventosDoArquivo();
+            return listaEventos               //coleção/lista de eventos
                 .Where(e => e.Id == id)   //filtrando os que tem Id igual ao informado
                 .SingleOrDefault();       //Single = registro unico  OrDefault = se nao existir, retorna null
         }
@@ -44,6 +41,12 @@ namespace api.Controllers
         [HttpPost]
         public Evento Create(Evento evento)
         {
+            var listaEventos = LerEventosDoArquivo();
+            listaEventos.Append(evento);
+
+            var json = System.Text.Json.JsonSerializer.Serialize(listaEventos);
+            System.IO.File.WriteAllText("data.json", json);
+
             return evento;
         }
 
