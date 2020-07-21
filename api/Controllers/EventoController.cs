@@ -40,5 +40,23 @@ namespace api.Controllers
                 .Where(e => e.Id == id)   //filtrando os que tem Id igual ao informado
                 .SingleOrDefault();       //Single = registro unico  OrDefault = se nao existir, retorna null
         }
+
+        [HttpPost]
+        public Evento Create(Evento evento)
+        {
+            return evento;
+        }
+
+        [HttpPut("{id}")]
+        public Evento Update(int id, Evento evento)
+        {
+            return evento;
+        }
+
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            return true;
+        }
     }
 }
