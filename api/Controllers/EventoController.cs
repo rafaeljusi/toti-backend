@@ -42,9 +42,10 @@ namespace api.Controllers
         public Evento Create(Evento evento)
         {
             var listaEventos = LerEventosDoArquivo();
-            listaEventos.Append(evento);
+            
+            var novaLista = listaEventos.Append(evento);
 
-            var json = System.Text.Json.JsonSerializer.Serialize(listaEventos);
+            var json = System.Text.Json.JsonSerializer.Serialize(novaLista);
             System.IO.File.WriteAllText("data.json", json);
 
             return evento;
