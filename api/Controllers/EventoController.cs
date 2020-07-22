@@ -29,7 +29,7 @@ namespace api.Controllers
             return listaEventos;
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public Evento Get(int id)
         {
             var listaEventos = LerEventosDoArquivo();
