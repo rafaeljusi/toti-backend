@@ -35,7 +35,7 @@ namespace api.Controllers
             var listaEventos = DB.LerEventosDoArquivo();
 
             var novaLista = listaEventos.Append(evento);
-            
+
             DB.SalvarEventosNoArquivo(novaLista);
 
             return evento;
@@ -44,13 +44,29 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public Evento Update(int id, Evento evento)
         {
-            return evento;
+            var listaEventos = DB.LerEventosDoArquivo();
+
+            var registroAtualizar = listaEventos.Where(e => e.Id == id).Single();
+            registroAtualizar.Titulo = evento.Titulo;
+            registroAtualizar.Data = evento.Data;
+
+            DB.SalvarEventosNoArquivo(listaEventos);
+
+            return registroAtualizar;
         }
 
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {
-            return true;
+            var listaEventos = DB.LerEventosDoArquivo();
+
+            var novaLista = listaEventos.Where(e => e.Id != id);
+
+            DB.SalvarEventosNoArquivo(novaLista);
+
+            var resultado = listaEventos.Count() != novaLista.Count();
+
+            return resultado;
         }
     }
 }

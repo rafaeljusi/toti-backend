@@ -5,9 +5,11 @@ namespace data
 {
     public class DB
     {
+        const string nomeDoArquivo = "data.json";
+        
         public static IEnumerable<Evento> LerEventosDoArquivo()
         {
-            var conteudoArquivo = System.IO.File.ReadAllText("data.json");
+            var conteudoArquivo = System.IO.File.ReadAllText(nomeDoArquivo);
 
             var lista = JsonSerializer.Deserialize<IEnumerable<Evento>>(conteudoArquivo);
 
@@ -17,7 +19,8 @@ namespace data
         public static void SalvarEventosNoArquivo(IEnumerable<Evento> novaLista)
         {
             var json = JsonSerializer.Serialize(novaLista);
-            System.IO.File.WriteAllText("data.json", json);
+            
+            System.IO.File.WriteAllText(nomeDoArquivo, json);
         }
 
     }
