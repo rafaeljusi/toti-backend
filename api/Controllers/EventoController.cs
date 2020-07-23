@@ -13,26 +13,17 @@ namespace api.Controllers
     [Route("[controller]")]
     public class EventoController : ControllerBase
     {
-        private IEnumerable<Evento> LerEventosDoArquivo()
-        {
-            var conteudoArquivo = System.IO.File.ReadAllText("data.json");
-
-            var lista = JsonSerializer.Deserialize<IEnumerable<Evento>>(conteudoArquivo);
-
-            return lista;
-        }
-
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            var listaEventos = LerEventosDoArquivo();
+            var listaEventos = DB.LerEventosDoArquivo();
             return listaEventos;
         }
 
         [HttpGet("{id}")]
         public Evento Get(int id)
         {
-            var listaEventos = LerEventosDoArquivo();
+            var listaEventos = DB.LerEventosDoArquivo();
             return listaEventos               //coleção/lista de eventos
                 .Where(e => e.Id == id)   //filtrando os que tem Id igual ao informado
                 .SingleOrDefault();       //Single = registro unico  OrDefault = se nao existir, retorna null
@@ -41,12 +32,11 @@ namespace api.Controllers
         [HttpPost]
         public Evento Create(Evento evento)
         {
-            var listaEventos = LerEventosDoArquivo();
-            
-            var novaLista = listaEventos.Append(evento);
+            var listaEventos = DB.LerEventosDoArquivo();
 
-            var json = System.Text.Json.JsonSerializer.Serialize(novaLista);
-            System.IO.File.WriteAllText("data.json", json);
+            var novaLista = listaEventos.Append(evento);
+            
+            DB.SalvarEventosNoArquivo(novaLista);
 
             return evento;
         }
