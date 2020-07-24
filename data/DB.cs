@@ -1,12 +1,33 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace data
 {
-    public class DB
+    public class DB : DbContext
     {
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseSqlServer("Server=localhost;Database=toti;User Id=sa;Password=SqlServer2019");
+        }
+
+        public DbSet<Evento> Eventos { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const string nomeDoArquivo = "data.json";
-        
+
         public static IEnumerable<Evento> LerEventosDoArquivo()
         {
             var conteudoArquivo = System.IO.File.ReadAllText(nomeDoArquivo);
@@ -19,7 +40,7 @@ namespace data
         public static void SalvarEventosNoArquivo(IEnumerable<Evento> novaLista)
         {
             var json = JsonSerializer.Serialize(novaLista);
-            
+
             System.IO.File.WriteAllText(nomeDoArquivo, json);
         }
 
