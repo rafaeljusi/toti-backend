@@ -1,0 +1,25 @@
+- Api
+    adicionar o package do EntityFramework.Design
+        dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.1.6
+
+- Data
+    1) adicionar o package do EntityFramework.Design
+        dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.1.6
+
+    2) adicionar o package do EntityFramework.SqlServer
+        dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.6
+
+    3) tranformar a classe Db pra herdar da classe DbContext
+        Db : DbContext
+    
+    4) configurar a conexão ao banco de dados local OnConfiguring
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=toti;Trusted_Connection=True;");
+        }
+
+    5) definir a propriedade Eventos
+        public DbSet<Evento> Eventos { get; set; }
+    
+    6) criar a migration Inicial
+        dotnet ef migrations add "InitialSetup" --startup-project ../api
