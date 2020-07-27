@@ -1,32 +1,11 @@
 using System.Collections.Generic;
 using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
 
 namespace data
 {
-    public class DB : DbContext
+    public class DB
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlServer("Server=localhost;Database=toti;User Id=sa;Password=SqlServer2019");
-        }
-
-        public DbSet<Evento> Eventos { get; set; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        const string nomeDoArquivo = "data.json";
+           const string nomeDoArquivo = "data.json";
 
         public static IEnumerable<Evento> LerEventosDoArquivo()
         {
