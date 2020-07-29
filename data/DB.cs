@@ -10,6 +10,10 @@ namespace data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+            //ConnectionString - Rafa
+            //options.UseSqlServer(@"Server=localhost;Database=toti;User Id=sa;Password=SQLServer2019");
+
+            //ConnectionString - Alunos
             options.UseSqlServer(@"Server=(localdb)\\mssqllocaldb;Database=toti;Trusted_Connection=True;");
         }
 
