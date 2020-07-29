@@ -14,7 +14,7 @@ namespace data
             //options.UseSqlServer(@"Server=localhost;Database=toti;User Id=sa;Password=SQLServer2019");
 
             //ConnectionString - Alunos
-            options.UseSqlServer(@"Server=(localdb)\\mssqllocaldb;Database=toti;Trusted_Connection=True;");
+            options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=toti;Trusted_Connection=True;");
         }
 
         const string nomeDoArquivo = "data.json";
