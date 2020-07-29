@@ -1,0 +1,15 @@
+Aula 2020-07-29
+
+- Implementar funções UPDATE/DELETE na api
+- Consultar alterações no banco
+===========================================
+- Criar novo campo "Cancelado" em Evento e gerar migration
+- Implementar migration automatico
+    db.Database.Migrate();
+===========================================
+(DataAnottation vs FluentAPI)
+- Renomear Tabela
+- Configurar Evento.Titulo como obrigatorio -> definir max length
+===========================================
+(Relacionamento entre tabelas)
+- Criar nova tabela TipoEvento -> definir ligação entre tabelas

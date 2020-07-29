@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace api.Controllers
@@ -16,14 +17,19 @@ namespace api.Controllers
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            var listaEventos = DB.LerEventosDoArquivo();
+            var dbContext = new DB();
+
+            var listaEventos = dbContext.Eventos;
             return listaEventos;
         }
 
         [HttpGet("{id}")]
         public Evento Get(int id)
         {
-            var listaEventos = DB.LerEventosDoArquivo();
+            var dbContext = new DB();
+
+            var listaEventos = dbContext.Eventos;
+            
             return listaEventos               //coleção/lista de eventos
                 .Where(e => e.Id == id)   //filtrando os que tem Id igual ao informado
                 .SingleOrDefault();       //Single = registro unico  OrDefault = se nao existir, retorna null
@@ -32,11 +38,11 @@ namespace api.Controllers
         [HttpPost]
         public Evento Create(Evento evento)
         {
-            var listaEventos = DB.LerEventosDoArquivo();
+            var dbContext = new DB();
 
-            var novaLista = listaEventos.Append(evento);
+            dbContext.Eventos.Add(evento);
 
-            DB.SalvarEventosNoArquivo(novaLista);
+            dbContext.SaveChanges();
 
             return evento;
         }

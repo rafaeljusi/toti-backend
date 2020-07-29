@@ -25,7 +25,7 @@ dotnet tool install --global dotnet-ef
     5) configurar a conexão ao banco de dados local OnConfiguring
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=toti;Trusted_Connection=True;");
+            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=toti;Trusted_Connection=True;");
         }
 
     6) criar a migration Inicial
