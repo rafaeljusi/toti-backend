@@ -50,29 +50,35 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public Evento Update(int id, Evento evento)
         {
-            var listaEventos = DB.LerEventosDoArquivo();
+            var dbContext = new DB();
+
+            var listaEventos = dbContext.Eventos;
 
             var registroAtualizar = listaEventos.Where(e => e.Id == id).Single();
             registroAtualizar.Titulo = evento.Titulo;
             registroAtualizar.Data = evento.Data;
 
-            DB.SalvarEventosNoArquivo(listaEventos);
+            dbContext.Eventos.Update(registroAtualizar);
+
+            dbContext.SaveChanges();
 
             return registroAtualizar;
         }
 
         [HttpDelete("{id}")]
-        public bool Delete(int id)
+        public Evento Delete(int id)
         {
-            var listaEventos = DB.LerEventosDoArquivo();
+            var dbContext = new DB();
 
-            var novaLista = listaEventos.Where(e => e.Id != id);
+            var listaEventos = dbContext.Eventos;
 
-            DB.SalvarEventosNoArquivo(novaLista);
+            var registroApagar = listaEventos.Where(e => e.Id == id).Single();
 
-            var resultado = listaEventos.Count() != novaLista.Count();
+            dbContext.Eventos.Remove(registroApagar);
 
-            return resultado;
+            dbContext.SaveChanges();
+
+            return registroApagar;
         }
     }
 }

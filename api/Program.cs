@@ -15,6 +15,9 @@ namespace api
     {
         public static void Main(string[] args)
         {
+            var dbContext = new DB();
+            dbContext.Database.Migrate();
+
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -11,10 +11,18 @@ namespace data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             //ConnectionString - Rafa
-            //options.UseSqlServer(@"Server=localhost;Database=toti;User Id=sa;Password=SQLServer2019");
+            options.UseSqlServer(@"Server=localhost;Database=toti;User Id=sa;Password=SQLServer2019");
 
             //ConnectionString - Alunos
-            options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=toti;Trusted_Connection=True;");
+            //options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=toti;Trusted_Connection=True;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Evento>()
+                .Property(e => e.Titulo)
+                .HasMaxLength(100)
+                .IsRequired();
         }
 
         const string nomeDoArquivo = "data.json";
