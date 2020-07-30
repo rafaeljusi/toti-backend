@@ -3,9 +3,16 @@ using System.Text.Json;
 
 namespace data
 {
-    public class DB
+    public class DB : DbContext
     {
-           const string nomeDoArquivo = "data.json";
+        public DbSet<Evento> Eventos { get; set; }
+
+         protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=toti;Trusted_Connection=True;");
+        }
+
+        const string nomeDoArquivo = "data.json";
 
         public static IEnumerable<Evento> LerEventosDoArquivo()
         {
