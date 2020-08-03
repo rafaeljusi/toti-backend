@@ -8,5 +8,8 @@ namespace data
         public DateTime Data { get; set; }
         public string Titulo { get; set; }
         public bool Cancelado { get; set; }
+
+        public int? TipoEventoId { get; set; }
+        public TipoEvento TipoEvento { get; set; }
     }
 }

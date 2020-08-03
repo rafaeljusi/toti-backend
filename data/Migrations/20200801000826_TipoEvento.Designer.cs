@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using data;
 
 namespace data.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20200801000826_TipoEvento")]
+    partial class TipoEvento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,17 +34,12 @@ namespace data.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TipoEventoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TipoEventoId");
 
                     b.ToTable("Eventos");
                 });
@@ -60,13 +57,6 @@ namespace data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TipoEventos");
-                });
-
-            modelBuilder.Entity("data.Evento", b =>
-                {
-                    b.HasOne("data.TipoEvento", "TipoEvento")
-                        .WithMany()
-                        .HasForeignKey("TipoEventoId");
                 });
 #pragma warning restore 612, 618
         }

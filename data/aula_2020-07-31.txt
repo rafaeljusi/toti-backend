@@ -1,0 +1,17 @@
+- CRUD
+    - api
+    - sql
+- SELECT
+    - colunas
+    - filtros
+    - agregações
+    - agrupamentos
+    - top / limit
+- RELACIONAMENTO
+    - Criar classe TipoEvento (Id, Descricao)
+    - Adicionar prop TipoEventos na DB.cs (DbSet<TipoEvento>)
+    - Adicionar prop TipoEvento (TipoEvento) na Evento.cs
+    - Adicionar prop TipoEventoId (int?) na Evento.cs
+    - Configurar relacionamento entre tabelas na OnModelCreating
+    - adicionar migration 
+    - Join

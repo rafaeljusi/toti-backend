@@ -28,7 +28,7 @@ namespace api.Controllers
         {
             var dbContext = new DB();
 
-            var listaEventos = dbContext.Eventos;
+            var listaEventos = dbContext.Eventos.Include(e => e.TipoEvento);
             
             return listaEventos               //coleção/lista de eventos
                 .Where(e => e.Id == id)   //filtrando os que tem Id igual ao informado
@@ -57,6 +57,7 @@ namespace api.Controllers
             var registroAtualizar = listaEventos.Where(e => e.Id == id).Single();
             registroAtualizar.Titulo = evento.Titulo;
             registroAtualizar.Data = evento.Data;
+            registroAtualizar.TipoEventoId = evento.TipoEventoId;
 
             dbContext.Eventos.Update(registroAtualizar);
 
