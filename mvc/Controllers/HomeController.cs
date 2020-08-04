@@ -25,6 +25,7 @@ namespace mvc.Controllers
 
         public IActionResult Help()
         {
+            ViewData["horaAtual"] = DateTime.Now.ToString("HH:mm:ss");
             return View();
         }
 
