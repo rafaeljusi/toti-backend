@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using mvc.Models;
 
@@ -11,17 +13,19 @@ namespace mvc.Controllers
 {
     public class EventoController : Controller
     {
-        private readonly ILogger<EventoController> _logger;
+        private readonly DB _dbInterno;
 
-        public EventoController(ILogger<EventoController> logger)
+        public EventoController(DB dbViaParametro)
         {
-            _logger = logger;
+            _dbInterno = dbViaParametro;
         }
 
         //http://localhost:5000/evento
         public IActionResult Index()
         {
-            return View();
+            var listaEventos = _dbInterno.Eventos.ToList();
+
+            return View(listaEventos);
         }
 
         //http://localhost:5000/evento/novo
