@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace data
 {
@@ -9,7 +11,7 @@ namespace data
 
          protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=toti;Trusted_Connection=True;");
+            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=toti;Trusted_Connection=True;");
         }
 
         const string nomeDoArquivo = "data.json";

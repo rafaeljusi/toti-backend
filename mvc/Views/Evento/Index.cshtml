@@ -1,8 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Eventos";
 }
 
 <div class="text-center">
     <h1 class="display-4">Pagina Inicial</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var evento in Model)
+    {
+        <h2>@evento.Id - @evento.Titulo</h2>
+        
+    }
 </div>
