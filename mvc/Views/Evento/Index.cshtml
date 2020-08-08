@@ -1,12 +1,32 @@
-﻿@{
+﻿@using data
+@model List<Evento>
+@{
     ViewData["Title"] = "Eventos";
-}
+}    
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Título</th>
+        <th></th>
+    </tr>
 
-<div class="text-center">
-    <h1 class="display-4">Pagina Inicial</h1>
     @foreach (var evento in Model)
     {
-        <h2>@evento.Id - @evento.Titulo</h2>
-        
+        <tr>
+            <td>@evento.Id</td>
+            <td>@evento.Titulo</td>
+            <td>
+                <a asp-controller="Evento" asp-action="Editar" asp-route-id=@evento.Id>
+                
+                <button class="btn btn-danger">Editar</button>
+                </a>
+                </td>
+                <td>
+                    <a asp-controller="Evento" asp-action ="Apagar" asp-route-id =@evento.Id>
+                        <button class="btn btn-danger">Apagar</button>
+                    </a>
+
+                </td>
+        </tr>
     }
-</div>
+</table>

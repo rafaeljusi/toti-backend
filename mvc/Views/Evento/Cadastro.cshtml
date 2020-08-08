@@ -1,0 +1,21 @@
+﻿@model EventoDTO
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Tela de edição de evento</h1>
+    @Model.Titulo
+</div>
+<form asp-action="Salvar" method="post">
+    <label asp-for="Id"></label>
+    <input asp-for="Id" />
+
+    <label asp-for="Titulo"></label>
+    <input asp-for="Titulo" />
+   
+    <label asp-for="Data"></label>
+    <input asp-for="Data" />
+  
+  <button type="submit">Salvar</button>
+</form>

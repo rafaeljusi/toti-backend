@@ -16,9 +16,9 @@ namespace mvc.Controllers
         private readonly DB _dbInterno;
         private readonly ILogger<EventoController> _logger;
 
-        public EventoController(ILogger<EventoController> logger , DB dbviaParametro)
+        public EventoController(ILogger<EventoController> logger, DB dbviaParametro)
         {
-        
+
             _dbInterno = dbviaParametro;
             _dbInterno.Database.Migrate();
             _logger = logger;
@@ -28,23 +28,73 @@ namespace mvc.Controllers
         public IActionResult Index()
         {
             var listaEventos = _dbInterno.Eventos.ToList();
-        
+
             return View(listaEventos);
         }
 
         public IActionResult Novo()
         {
-            
-            return View();
+            var eventoDTO = new EventoDTO();
+
+
+
+            return View("Cadastro", eventoDTO);
         }
+
 
 
         public IActionResult Editar(int id)
         {
-            ViewData["id"] = id;
-            return View();
+            var evento = _dbInterno.Eventos.SingleOrDefault(e => e.Id == id);
+            var eventoDTO = new EventoDTO
+            {
+                Id = evento.Id,
+                Titulo = evento.Titulo,
+                Data = evento.Data,
+            };
+            return View("Cadastro", eventoDTO);
+        }
+        [HttpPost]
+        public IActionResult Salvar(EventoDTO eventoFormulario)
+        {
+            if (eventoFormulario.Id == 0)
+            {
+                //Registro novo
+                var eventoBD = new Evento();
+                eventoBD.Titulo = eventoFormulario.Titulo;
+                eventoBD.Data = eventoFormulario.Data;
+
+                _dbInterno.Add(eventoBD);
+            }
+            else
+            {
+                var eventoBD = _dbInterno.Eventos.SingleOrDefault(e => e.Id == eventoFormulario.Id);
+                eventoBD.Titulo = eventoFormulario.Titulo;
+                eventoBD.Data = eventoFormulario.Data;
+
+                _dbInterno.Update(eventoBD);
+
+            }
+           
+            _dbInterno.SaveChanges();
+
+
+            return RedirectToAction("Index");
+        }
+         public IActionResult Apagar(int id)
+        {
+            var evento = _dbInterno.Eventos.SingleOrDefault(e => e.Id == id);
+            _dbInterno.Remove(evento);
+            _dbInterno.SaveChanges();
+
+            return RedirectToAction("Index");
+
+
+
         }
 
-       
+
+
+
     }
 }
