@@ -4,12 +4,12 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Tela de edição de evento</h1>
+    <h1 class="display-4">Cadastro</h1>
     @Model.Titulo
 </div>
 <form asp-action="Salvar" method="post">
     <label asp-for="Id"></label>
-    <input asp-for="Id" />
+    <input asp-for="Id" readonly />
 
     <label asp-for="Titulo"></label>
     <input asp-for="Titulo" />
