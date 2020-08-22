@@ -1,0 +1,22 @@
+﻿@model EventoDTO
+@{
+    ViewData["Title"] = "Eventos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Cadastro</h1>
+</div>
+
+<form asp-action="Salvar" method="post">
+    
+    <label asp-for="Id"></label>
+    <input asp-for="Id" readonly />
+
+    <label asp-for="Titulo"></label>
+    <input asp-for="Titulo" />
+
+    <label asp-for="Data"></label>
+    <input asp-for="Data" />
+
+    <button type="submit">Salvar</button>
+</form>

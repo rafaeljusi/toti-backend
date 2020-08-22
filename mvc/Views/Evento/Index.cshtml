@@ -4,11 +4,16 @@
     ViewData["Title"] = "Eventos";
 }
 
+<a asp-controller="Evento" asp-action="Novo">
+    <button class="btn btn-primary">Novo</button>
+</a>
+
 <table>
     <tr>
         <th>Id</th>
         <th>Título</th>
         <th>Cancelado</th>
+        <th></th>
         <th></th>
     </tr>
 
@@ -18,7 +23,16 @@
             <td>@evento.Id</td>
             <td>@evento.Titulo</td>
             <td>@evento.Cancelado</td>
-            <td><a asp-controller="Evento" asp-action="Editar" asp-route-id=@evento.Id>Editar</a></td>
+            <td>
+                <a asp-controller="Evento" asp-action="Editar" asp-route-id=@evento.Id>
+                    <button class="btn btn-secondary">Editar</button>
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Evento" asp-action="Apagar" asp-route-id=@evento.Id>
+                    <button class="btn btn-danger">Apagar</button>
+                </a>
+            </td>
         </tr>
     }
 </table>

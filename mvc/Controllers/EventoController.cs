@@ -31,15 +31,65 @@ namespace mvc.Controllers
         //http://localhost:5000/evento/novo
         public IActionResult Novo()
         {
-            return View();
+            var eventoDTO = new EventoDTO();
+
+            return View("Cadastro", eventoDTO);
         }
 
         //http://localhost:5000/evento/editar/{id}
         public IActionResult Editar(int id)
         {
-            ViewData["id"] = id;
+            var evento = _dbInterno.Eventos.SingleOrDefault(e => e.Id == id);
 
-            return View();
+            var eventoDTO = new EventoDTO
+            {
+                Id = evento.Id,
+                Titulo = evento.Titulo,
+                Data = evento.Data
+            };
+
+            return View("Cadastro", eventoDTO);
+        }
+
+        [HttpPost]
+        public IActionResult Salvar(EventoDTO eventoFormulario)
+        {
+            if (eventoFormulario.Id == 0)
+            {
+                //Registro novo
+                var eventoBD = new Evento();
+
+                eventoBD.Titulo = eventoFormulario.Titulo;
+                eventoBD.Data = eventoFormulario.Data;
+
+                _dbInterno.Add(eventoBD);
+            }
+            else
+            {
+                //Registro atualizado
+                var eventoBD = _dbInterno.Eventos.SingleOrDefault(e => e.Id == eventoFormulario.Id);
+
+                eventoBD.Titulo = eventoFormulario.Titulo;
+                eventoBD.Data = eventoFormulario.Data;
+
+                _dbInterno.Update(eventoBD);
+            }
+
+            _dbInterno.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        //http://localhost:5000/evento/apagar/{id}
+        public IActionResult Apagar(int id)
+        {
+            var evento = _dbInterno.Eventos.SingleOrDefault(e => e.Id == id);
+
+            _dbInterno.Remove(evento);
+
+            _dbInterno.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

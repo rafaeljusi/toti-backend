@@ -1,0 +1,29 @@
+MVC
+
+-   Conceitos de MVC 
+-   Criação de aplicação MVC dotnet usando template
+-   Análise de Projeto Template (Controller, Models, Views)
+-   Introdução a Views
+-   TempData / ViewBag / ViewData
+-   Criação de View
+-   Criação de Controller
+
+-   Templates / Layouts
+-   @model
+-   asp-tags
+-   Services
+-   Injeção de Dependência
+-   Partial Views
+-   Extensions
+
+-   Configurações
+-   ViewModels / DTOs
+-   Validação
+-   Autenticação e Identidade
+
+-   Logging
+-   Testes
+-   Build / Publish / Deploy
+
+dotnet aspnet-codegenerator
+dotnet aspnet-codegenerator identity
